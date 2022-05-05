@@ -12,3 +12,10 @@ class User:
     self.phone_number = phone_number
     self.email = first + '.' + last + '@myspace.com'
 
+
+  def save_user(self):
+    '''
+    save_user method saves user info into the user_list
+    '''
+
+    User.user_list.append(self)
