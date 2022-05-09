@@ -8,13 +8,16 @@ class TestUser(unittest.TestCase):
     SetUp method to run before test cases
     '''
 
-    self.new_user = User ('Allan', 'Musyoka', '0729789761') # Create contact object
+    self.new_user = User ('Allan', 'Musyoka', '0729789761', 'password') # Create contact object
 
 
   def test_init(self):
     self.assertEqual(self.new_user.first,"Allan")
     self.assertEqual(self.new_user.last,"Musyoka")
     self.assertEqual(self.new_user.phone_number,"0729789761")
+    self.assertEqual(self.new_user.password,"password")
+
+  
 
   # Test to save user
   def test_save_user(self):
@@ -38,7 +41,7 @@ class TestUser(unittest.TestCase):
     test_save_multiple_users to check if we can save multiple users object to our user_list
     '''
     self.new_user.save_user()
-    test_user = User("John", "Doe", "0712344556") # New user
+    test_user = User("John", "Doe", "0712344556", "moringa") # New user
     test_user.save_user()
     self.assertEqual(len(User.user_list),2)
 
@@ -49,7 +52,7 @@ class TestUser(unittest.TestCase):
     Test_delete_user to test if we can remove a user from our user_list
     '''
     self.new_user.save_user()
-    test_user = User ("Tiff", "Aimee", "0712345678")
+    test_user = User ("Tiff", "Aimee", "0712345678", "Lifes Good")
     test_user.save_user()
 
     self.new_user.delete_user()  # Deleting a user object
@@ -62,12 +65,14 @@ class TestUser(unittest.TestCase):
     Test to check if we can return a Boolean if we cannot find the user
     '''
     self.new_user.save_user()
-    test_user = User ("Test", "User", "0712876328")
+    test_user = User ("Test", "User", "0712876328", "Rolls Royce")
     test_user.save_user()
     user_exists = User.user_exists("0712876328")
 
     self.assertTrue(user_exists)
 
+
+  # Test to display all users
   def test_display_all_users(self):
     '''
     Method that returns a list of all users saved
