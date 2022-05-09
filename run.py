@@ -52,7 +52,7 @@ def main():
   print('\n')
 
   while True:
-    print("Use These short codes: cc - create a new user, dc - display users, fc - find a user")
+    print("Use These short codes: cc - create a new user, dc - display users, fc - find a user, ex - exit")
 
     short_code = input().lower()
 
@@ -77,3 +77,52 @@ def main():
       print('\n')
       print(f"New User {f_name} {l_name} has been created")
       print('\n')
+
+    # Display saved users
+    elif short_code == 'dc':
+      if display_users():
+        print("Below is a list of your users")
+        print('\n')
+
+        for user in display_users():
+          print(f"{user.first_name} {user.last_name} ->  {user.phone_number}")
+
+        print('\n')
+
+
+      else:
+        print('\n')
+        print("You don't seem to have any user saved yet")
+
+        print('\n')
+
+
+    #Search for user using phone number
+    elif short_code == 'fc':
+      print("Enter the new number that you would like to search for")
+
+      search_number = input()
+      if check_existing_users(search_number):
+        search_user = find_user (search_number)
+
+        print(f"{search_user.first_name} {search_user.last_name}")
+
+        print('-' * 20)
+
+        print(f"Phone Number .........{search_user.phone_number}")
+        
+      
+      else:
+        print("The user entered does not exist")
+
+
+    elif short_code == "ex":
+      print("Bye Nigger ..... Catch you on the flip side")
+      break
+
+    else:
+      print("I really don't seem to gerrit. Please use the correct short codes")
+
+
+if __name__ == '__main__':
+  main()
