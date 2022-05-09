@@ -60,3 +60,38 @@ class User:
     '''
 
     return cls.user_list
+
+
+
+#The credentials class will contain the credentials ie username and password
+#of the user from various platforms. It will also generate new passwords
+#Objective is to store generic username and password for existing platforms and create
+#new credentials for new accounts using password and auto generate passwords
+
+class Credentials(User):
+  '''
+  Credentials class that stores user credentials from various platforms
+  '''
+
+  credentials_list = []
+
+  '''
+  Empty list to store credentials
+  '''
+
+  def __init__ (self, first, last, phone_number, platform, username, Password):
+
+    '''
+    Constructor to generate new credentials for every platform
+
+    Takes in the name of the username and password and platform
+    '''
+
+    super().__init__(first, last, phone_number)
+
+    '''
+    Used super to call parents init method
+    '''
+    self.platform = platform
+    self.username = username
+    self.Password = Password

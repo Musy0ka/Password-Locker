@@ -97,23 +97,23 @@ def main():
         print('\n')
 
 
-    #Search for user using phone number
-    elif short_code == 'fc':
-      print("Enter the new number that you would like to search for")
+    # #Search for user using phone number
+    # elif short_code == 'fc':
+    #   print("Enter the new number that you would like to search for")
 
-      search_number = input()
-      if check_existing_users(search_number):
-        search_user = find_user (search_number)
+    #   search_number = input()
+    #   if check_existing_users(search_number):
+    #     search_user = find_user (search_number)
 
-        print(f"{search_user.first_name} {search_user.last_name}")
+    #     print(f"{search_user.first_name} {search_user.last_name}")
 
-        print('-' * 20)
+    #     print('-' * 20)
 
-        print(f"Phone Number .........{search_user.phone_number}")
+    #     print(f"Phone Number .........{search_user.phone_number}")
         
       
-      else:
-        print("The user entered does not exist")
+    #   else:
+    #     print("The user entered does not exist")
 
 
     elif short_code == "ex":
