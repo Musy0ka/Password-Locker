@@ -39,3 +39,41 @@ def display_users():
   '''
 
   return User.display_users()
+
+
+
+
+def main():
+  print("Wagwan User Welcome to your user list. Please enter your name?")
+  
+  user_name = input()
+
+  print(f"Hello {user_name}. What you care to do this moment?")
+  print('\n')
+
+  while True:
+    print("Use These short codes: cc - create a new user, dc - display users, fc - find a user")
+
+    short_code = input().lower()
+
+    if short_code == 'cc':
+      print("New User")
+      print("-" * 10)
+
+      print("First name .....")
+      f_name = input()
+
+      print("Last name .....")
+      l_name = input()
+
+      print ("Phone number .....")
+      p_number = input()
+
+      print ("Pasword .....")
+      password = input()
+
+      # Create and save new user
+      save_users(create_user(f_name, l_name, p_number, password))
+      print('\n')
+      print(f"New User {f_name} {l_name} has been created")
+      print('\n')
