@@ -14,6 +14,7 @@ class User:
     self.password = password
 
 
+
   def save_user(self):
     '''
     save_user method saves user info into the user_list
@@ -21,12 +22,16 @@ class User:
 
     User.user_list.append(self)
 
+
+
   def delete_user(self):
     '''
     Delete_user method deletes a saved user from the user_list
     '''
 
     User.user_list.remove(self)
+
+  
 
   @classmethod
   def user_exists(cls, number):
@@ -45,6 +50,7 @@ class User:
         return True
 
     return False
+
 
 
   @classmethod

@@ -23,3 +23,11 @@ def delete_user(user):
   '''
 
   user.delete_user()
+
+
+def check_existing_users(number):
+  '''
+  Function that check if a user exists with that number and returns a Boolean
+  '''
+
+  return User.user_exists(number)
