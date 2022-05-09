@@ -1,5 +1,5 @@
 import unittest # Importing the unittest module
-from user import User
+from user import Credentials, User
 
 class TestUser(unittest.TestCase):
 
@@ -35,6 +35,8 @@ class TestUser(unittest.TestCase):
     '''
     User.user_list = []
 
+
+
   # Test to save more than one user
   def test_save_multiple_users(self):
     '''
@@ -44,6 +46,7 @@ class TestUser(unittest.TestCase):
     test_user = User("John", "Doe", "0712344556", "moringa") # New user
     test_user.save_user()
     self.assertEqual(len(User.user_list),2)
+
 
 
   # Test to delete a user
@@ -59,6 +62,7 @@ class TestUser(unittest.TestCase):
     self.assertEqual(len(User.user_list),1)
 
 
+
   # Test to check if user exists
   def test_user_exists(self):
     '''
@@ -72,6 +76,7 @@ class TestUser(unittest.TestCase):
     self.assertTrue(user_exists)
 
 
+
   # Test to display all users
   def test_display_all_users(self):
     '''
@@ -80,6 +85,29 @@ class TestUser(unittest.TestCase):
 
     self.assertEqual(User.display_users(),User.user_list)
 
+
+#Credentials class
+class TestCredentials(unittest.TestCase):
+  '''
+  test cases and methods to test the credentials class
+  '''
+
+  def setUp(self):
+    '''
+    setUp case to run before each or method
+    '''
+
+    self.new_credentials = Credentials ("Twitter","User", "twitterOg")
+    '''
+    constructor to create a new instance of the credentials class
+    '''
+
+  def tearDown(self):
+    '''
+    cleans up after every case/method runs
+    '''
+
+    Credentials.credentials_list = []
 
 if __name__ == '__main__':
   unittest.main()

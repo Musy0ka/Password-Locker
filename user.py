@@ -79,7 +79,7 @@ class Credentials(User):
   Empty list to store credentials
   '''
 
-  def __init__ (self, first, last, phone_number, platform, username, Password):
+  def __init__ (self, first, last, phone_number, platform, acc_username, acc_password):
 
     '''
     Constructor to generate new credentials for every platform
@@ -93,5 +93,5 @@ class Credentials(User):
     Used super to call parents init method
     '''
     self.platform = platform
-    self.username = username
-    self.Password = Password
+    self.username = acc_username
+    self.Password = acc_password
