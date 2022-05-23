@@ -1,128 +1,155 @@
 #!/usr/bin/env python3.8
+from password import Credential
+from password import User
 
-from user import User
+def create_profile(username,password):
+    '''
+    Function to create a new user profile
+    '''
+    new_profile = User(username,password)
+    return new_profile
 
-def create_user (fname,lname,phone,password):
-  '''
-  Function to create a new user
-  '''
+def save_profile(profile):
+    '''
+    Function to save user profile
+    '''
+    profile.save_profile()
 
-  new_user = User (fname, lname, phone, password)
-  return new_user
+    ## user class code above
+## credential class code below
+def create_account(accountName,accountUsername,accountPassword):
+    '''
+    Function to creates a new account
+    '''
+    new_account = Credential(accountName,accountUsername,accountPassword)
+    return new_account
 
-def save_users(user):
-  '''
-  Function to save user
-  '''
+def save_account(account):
+    '''
+    Function to save account
+    '''
+    account.save_account()
 
-  user.save_user()
+def find_account(id):
+    '''
+    Function that find an account by username and return the account
+    '''
+    return Credential.find_by_id(id)
 
-def delete_user(user):
-  '''
-  Function to delete a user
-  '''
+def check_existing_accounts(id):
+    '''
+    Function that return all the saved account
+    '''
+    return Credential.account_exist(id)
 
-  user.delete_user()
+def display_accounts():
+    '''
+    Function that returns all saved accounts
+    '''
+    return Credential.display_accounts()
 
-
-def check_existing_users(number):
-  '''
-  Function that check if a user exists with that number and returns a Boolean
-  '''
-
-  return User.user_exists(number)
-
-
-def display_users():
-  '''
-  Function that returns all the saved users
-  '''
-
-  return User.display_users()
-
-
-
+def delete_account(accountName):
+    '''
+    Function that deletes an account
+    '''
+    return Credential.delete_account()
 
 def main():
-  print("Wagwan User Welcome to your user list. Please enter your name?")
-  
-  user_name = input()
+    print("Hello, Welcome to Password-Manager. Do de ting below.")
 
-  print(f"Hello {user_name}. What you care to do this moment?")
-  print('\n')
+    print('\n')
+    while True:
+        print('sign up or log in')
+        print('Use this short codes: su - create new profile, li - log in')
+        start = input()
+        if start == 'su':
+            print('Please enter your first name')
+            first_name = input()
+            print('Please enter your last name')
+            last_name = input()
+            print('Please enter your preferred username')
+            username = input()
+            print('Enter password')
+            password = input()
+            print('Please confirm password')
+            password = input()
+            print('Profile created succesfully')
+        elif start == 'li':
+            print('Please enter your profile username')
+            username = input()
+            print('Enter Password')
+            password = input()
+            print('You are now logged in')
+        else:
+            print('Kindly use the codes mentioned above')
+        while True:
+            print(f'Hello {username}. What would you like to do?')
+            print("Use these short codes: ca - create a new account, da - display your saved accounts, fa - find an account, dlt - delete a credential account ex - exit the account log in account credential list")
+            
+            short_code = input().lower() #sets a variable to store short codes navigating this app
+            #create account condition
+            if short_code == 'ca':
+                print('New account')
+                print('-'*10)
 
-  while True:
-    print("Use These short codes: cc - create a new user, dc - display users, fc - find a user, ex - exit")
+                print("Account Brand name e.g: 'instagram' ... ")
+                accountName = input()
 
-    short_code = input().lower()
+                print('Your account username ...')
+                accountUsername = input()
 
-    if short_code == 'cc':
-      print("New User")
-      print("-" * 10)
+                print('Key in Password ...')
+                accountPassword = input()
 
-      print("First name .....")
-      f_name = input()
+                save_account(create_account(accountName, accountUsername, accountPassword))# creates and save new account
 
-      print("Last name .....")
-      l_name = input()
+                print('\n')
+                print(f"New {accountName} account  with username {accountUsername} has been created successfully")
+                print('\n')
+                 #display account
+            elif short_code == 'da':
 
-      print ("Phone number .....")
-      p_number = input()
+                if display_accounts():
+                    print("Here is alist of all your saved account log in credentials")
+                    print('\n')
 
-      print ("Pasword .....")
-      password = input()
+                    for account in display_accounts():
+                        print(f"{account.accountName} {account.accountUsername}")
+                        print('\n')
+                else:
+                    print('\n')
+                    print("You dont seem to have any accounts saved yet")
+                    print('\n')
+                    # find account
+            elif short_code == 'fa':
+                print('Enter the username you want to search for')
+                search_accountUsername = input()
+                if check_existing_accounts(search_accountUsername):
+                    search_account = find_account(search_accountUsername)
+                    print(f"{search_account.accountName} {search_account.accountUsername} {search_account.accountPassword}")
+                    print('-'*20)
 
-      # Create and save new user
-      save_users(create_user(f_name, l_name, p_number, password))
-      print('\n')
-      print(f"New User {f_name} {l_name} has been created")
-      print('\n')
+                    print(f"Account name: {search_account.accountName}")
+                    print(f"Account username: {search_account.accountUsername}")
+                else:
+                    print("That account does not exist")
 
-    # Display saved users
-    elif short_code == 'dc':
-      if display_users():
-        print("Below is a list of your users")
-        print('\n')
-
-        for user in display_users():
-          print(f"{user.first_name} {user.last_name} ->  {user.phone_number}")
-
-        print('\n')
-
-
-      else:
-        print('\n')
-        print("You don't seem to have any user saved yet")
-
-        print('\n')
-
-
-    # #Search for user using phone number
-    # elif short_code == 'fc':
-    #   print("Enter the new number that you would like to search for")
-
-    #   search_number = input()
-    #   if check_existing_users(search_number):
-    #     search_user = find_user (search_number)
-
-    #     print(f"{search_user.first_name} {search_user.last_name}")
-
-    #     print('-' * 20)
-
-    #     print(f"Phone Number .........{search_user.phone_number}")
-        
-      
-    #   else:
-    #     print("The user entered does not exist")
-
-
-    elif short_code == "ex":
-      print("Bye Nigger ..... Catch you on the flip side")
-      break
-
-    else:
-      print("I really don't seem to gerrit. Please use the correct short codes")
-
+                      # delete account
+            elif short_code == 'dlt':
+                print('Enter the account username you want to delete')
+                delete = input().lower()
+                if find_account(delete):
+                    search_account = find_account(delete)
+                    search_account.delete_account()
+                    print(f'{search_account.accountName} has been deleted')
+                else:
+                    print('The account does not exist')
+                     #exit app
+            elif short_code == 'ex':
+                print('Thank you for considering our service. Goodbye for now see you later!')
+                break
+            else:
+                print('I really didnt get that. Please use the short codes')
 
 if __name__ == '__main__':
-  main()
+    main()

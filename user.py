@@ -1,97 +1,105 @@
 class User:
-  '''
-  Class that generates new instances of user
-  '''
-
-  user_list = [] # Empty user list
-
-  # Init method
-  def __init__ (self, first, last, phone_number, password):
-    self.first = first
-    self.last = last
-    self.phone_number = phone_number
-    self.email = first + '.' + last + '@myspace.com'
-    self.password = password
-
-
-
-  def save_user(self):
     '''
-    save_user method saves user info into the user_list
+    This class helps generate instances for creating a new account on this application
+    '''
+    profile_list = [] # empty profile list
+    def __init__(self, userName, password):
+        '''
+        This function helps define properties to create a PASSWORD-MANAGER account.
+        Args: 
+            userName: user's username
+            password: user's password
+        '''
+        self.userName = userName
+        self.password = password
+
+
+    def save_profile(self):
+        '''
+        Test to save a new profile
+        '''
+        User.profile_list.append(self)
+
+
+    def delete_profile(self):
+        '''
+        Test to delete user's profile
+        '''
+        User.profile_list.remove(self)
+
+
+
+
+class Credential:
+    '''
+    This class helps generate instances for new and or existing online accounts log in credentials
     '''
 
-    User.user_list.append(self)
+
+    credentials_list = [] # empty list that will hold online accounts log in details
+
+    def save_account(self):
+        '''
+        save_account method saves account log in credentials object into credential_list
+        '''
+        Credential.credentials_list.append(self)
+
+
+    def __init__(self, accountName, accountUsername, accountPassword):
+        '''
+        This function helps define properties of new and or existing accounts objects.
+        Args:
+            accountName: brand name of user online account. For example; 'instagram'
+            accountUsername: user username of a specified online account.
+            accountPassword: user password for an online account.
+        '''
+
+        
+        self.accountName = accountName
+        self.accountUsername = accountUsername
+        self.accountPassword = accountPassword
 
 
 
-  def delete_user(self):
-    '''
-    Delete_user method deletes a saved user from the user_list
-    '''
+    def delete_account(self):
+        '''
+        delete_account method deletes a saved account from credential_list
+        '''
+        Credential.credentials_list.remove(self)
 
-    User.user_list.remove(self)
-
+        
+    @classmethod
+    def find_by_id(cls,id):
+        '''
+        Method that takes in accountUsername and returns an account that matches that accountUsername
+        Args:
+            accountUsername: User username to search for
+        Returns:
+            account of person that matches accountUsername
+        '''
+        for account in cls.credentials_list:
+            if account.accountUsername == id:
+                return account
   
 
-  @classmethod
-  def user_exists(cls, number):
-    '''
-    Method that checks if a user exists from the user_list
+    @classmethod
+    def account_exist(cls,id):
+        '''
+        Method that check if an account already exists from the credential list
+        Args: 
+            accountUsername to search if account exist
+        Returns: 
+            True or false depending id the account exists
+        '''
 
-    Args:
-          number: Phone number to search if it exists
+        for account in cls.credentials_list:
+            if account.accountUsername == id:
+                return True
+        return False
 
-    Returns:
-            Boolean: True or False depending if the user exists
-    '''
-
-    for user in cls.user_list:
-      if user.phone_number == number:
-        return True
-
-    return False
-
-
-
-  @classmethod
-  def display_users(cls):
-    '''
-    Method that returns that user list
-    '''
-
-    return cls.user_list
-
-
-
-#The credentials class will contain the credentials ie username and password
-#of the user from various platforms. It will also generate new passwords
-#Objective is to store generic username and password for existing platforms and create
-#new credentials for new accounts using password and auto generate passwords
-
-class Credentials(User):
-  '''
-  Credentials class that stores user credentials from various platforms
-  '''
-
-  credentials_list = []
-
-  '''
-  Empty list to store credentials
-  '''
-
-  def __init__ (self, first, last, phone_number, platform, acc_username, acc_password):
-
-    '''
-    Constructor to generate new credentials for every platform
-
-    Takes in the name of the username and password and platform
-    '''
-
-    super().__init__(first, last, phone_number)
-
-    '''
-    Used super to call parents init method
-    '''
-    self.platform = platform
-    self.username = acc_username
-    self.Password = acc_password
+    @classmethod
+    def display_accounts(cls):
+        '''
+        Method that retuns items in credential list
+        '''
+        return cls.credentials_list

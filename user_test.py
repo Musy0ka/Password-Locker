@@ -1,113 +1,125 @@
-import unittest # Importing the unittest module
-from user import Credentials, User
+import unittest #unitest module
+from password import Credential #imports Credential class for testing
+from password import User #imports User class for testing
 
 class TestUser(unittest.TestCase):
-
-  def setUp(self):
     '''
-    SetUp method to run before test cases
-    '''
-
-    self.new_user = User ('Allan', 'Musyoka', '0729789761', 'password') # Create contact object
-
-
-  def test_init(self):
-    self.assertEqual(self.new_user.first,"Allan")
-    self.assertEqual(self.new_user.last,"Musyoka")
-    self.assertEqual(self.new_user.phone_number,"0729789761")
-    self.assertEqual(self.new_user.password,"password")
-
-  
-
-  # Test to save user
-  def test_save_user(self):
-    '''
-    test_save_user test case to test if the user object is saved into the user list
-    '''
-    self.new_user.save_user() # saving the new user
-    self.assertEqual(len(User.user_list),1)
-
-
-  # Setup and class creation up here
-  def tearDown(self):
-    '''
-    tearDown method that does clean up after each test case has run
-    '''
-    User.user_list = []
-
-
-
-  # Test to save more than one user
-  def test_save_multiple_users(self):
-    '''
-    test_save_multiple_users to check if we can save multiple users object to our user_list
-    '''
-    self.new_user.save_user()
-    test_user = User("John", "Doe", "0712344556", "moringa") # New user
-    test_user.save_user()
-    self.assertEqual(len(User.user_list),2)
-
-
-
-  # Test to delete a user
-  def test_delete_user(self):
-    '''
-    Test_delete_user to test if we can remove a user from our user_list
-    '''
-    self.new_user.save_user()
-    test_user = User ("Tiff", "Aimee", "0712345678", "Lifes Good")
-    test_user.save_user()
-
-    self.new_user.delete_user()  # Deleting a user object
-    self.assertEqual(len(User.user_list),1)
-
-
-
-  # Test to check if user exists
-  def test_user_exists(self):
-    '''
-    Test to check if we can return a Boolean if we cannot find the user
-    '''
-    self.new_user.save_user()
-    test_user = User ("Test", "User", "0712876328", "Rolls Royce")
-    test_user.save_user()
-    user_exists = User.user_exists("0712876328")
-
-    self.assertTrue(user_exists)
-
-
-
-  # Test to display all users
-  def test_display_all_users(self):
-    '''
-    Method that returns a list of all users saved
+    Test class that helps define test cases for the credentials class behaviours
+    Args:
+        Testcase class taht helps create test cases for User
     '''
 
-    self.assertEqual(User.display_users(),User.user_list)
+    # test to check if user object is instatiated properly
+    def setUp(self):
+        '''
+        Set up method to run before each test case.
+        '''
+        self.new_profile = User('Wairimu','Kanene')
 
+    def test__init(self):
+        '''
+        Test case to test if User object is instantiated correctly
+        '''
+        self.assertEqual(self.new_profile.userName, 'Wairimu')
+        self.assertEqual(self.new_profile.password, 'Kanene')
 
-#Credentials class
-class TestCredentials(unittest.TestCase):
-  '''
-  test cases and methods to test the credentials class
-  '''
+        #end of class user test
+        #start of class credential test
 
-  def setUp(self):
+class TestCredential(unittest.TestCase):
     '''
-    setUp case to run before each or method
+    Test class that helps define test cases for the credentials class behaviours
+    
+    Args:
+        Testcase class that helps create test cases for Credential
     '''
 
-    self.new_credentials = Credentials ("Twitter","User", "twitterOg")
-    '''
-    constructor to create a new instance of the credentials class
-    '''
+    #test to check if credential object is instantiated properly
 
-  def tearDown(self):
-    '''
-    cleans up after every case/method runs
-    '''
+    def tearDown(self):
+        '''
+        cleans up each credential list after instance
+        '''
+        Credential.credentials_list = []
 
-    Credentials.credentials_list = []
 
+    def setUp(self):
+        '''
+        Set up method to run before each test case.
+        '''
+        self.new_account = Credential('instagram', 'wairimuKanene', 'wa.irim.u') #sample login details for a new instagram account 
+
+    def test__init(self):
+        '''
+        Test case to test if credential object is instantiated correctly
+        '''
+        self.assertEqual(self.new_account.accountName, 'instagram')
+        self.assertEqual(self.new_account.accountUsername,'wairimuKanene')
+        self.assertEqual(self.new_account.accountPassword,'wa.irim.u')
+
+         # save account
+    def test_save_account(self):
+        '''
+        Test case to check account object is saved into the contact list
+        '''
+        self.new_account.save_account()
+        self.assertEqual(len(Credential.credentials_list),1)
+
+         # save multiple accounts
+    def test_save_multiple_accounts(self):
+        '''
+        Test case to check if users can save multiple accounts
+        '''
+        self.new_account.save_account()
+        test_account = Credential('Test', 'ninakamau', 'nania')
+        test_account.save_account()
+        self.assertEqual(len(Credential.credentials_list),2)
+
+
+        #delete account
+    def test_delete_account(self):
+        '''
+        Test case to check if user can delete an account
+        '''
+        self.new_account.save_account()
+        test_account = Credential('Test', 'ninakamau', 'nania')
+        test_account.save_account()
+
+        self.new_account.delete_account() #deletes account object
+        self.assertEqual(len(Credential.credentials_list),1)
+
+        # search account by id
+    def test_find_account_by_id(self):
+        '''
+        Test case to check if we can find an account by username and display information
+        '''
+        self.new_account.save_account()
+        test_account = Credential('Test', 'ninakamau', 'nania')
+        test_account.save_account()
+
+        found_account = Credential.find_by_id('ninakamau')
+        self.assertEqual(found_account.accountUsername,test_account.accountUsername)
+
+        # check if account exist
+    def test_account_exists(self):
+        '''
+        Test case to check if a user account already exist returns a boolean
+        '''
+        self.new_account.save_account()
+        test_account = Credential('Test', 'ninakamau', 'nania')
+        test_account.save_account()
+
+        account_exists = Credential.account_exist('ninakamau')
+        self.assertTrue(account_exists)
+
+         # display available accounts
+    def test_display_all_accounts(self):
+        '''
+        Method that returns a list of all saved accounts
+        '''
+
+        self.assertEqual(Credential.display_accounts(),Credential.credentials_list)
+
+        #class condition
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()
