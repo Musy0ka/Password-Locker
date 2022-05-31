@@ -16,7 +16,6 @@ def save_profile(profile):
     profile.save_profile()
 
     ## user class code above
-## credential class code below
 def create_account(accountName,accountUsername,accountPassword):
     '''
     Function to creates a new account
